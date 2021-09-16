@@ -1,24 +1,42 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| email              | string | null: false |
+| password           | string | null: false |
+| name               | string | null: false |
+| profile            | text   | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :plamos
+- has_many :comments
 
-* Configuration
+## plamo テーブル
 
-* Database creation
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| title              | string     | null: false                    |
+| concept            | text       | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- has_many :comments
+- belong_to :users
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+## comments テーブル
 
-* ...
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| text               | text       | null: false                    |
+| user               | references | null: false, foreign_key: true |
+| plamo          | references | null: false, foreign_key: true     |
+
+### Association
+
+- belong_to :users
+- belong_to :plamos
